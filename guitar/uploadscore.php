@@ -38,10 +38,11 @@ define('GW_UPLOADPATH', 'images/', TRUE);
       $name = $_POST['name'];
       $score = $_POST['score'];
       $screenshot = $_FILES['screenshot']['name'];
+      $output_form = false;
 
       if (!empty($name) && !empty($score) && is_numeric($score) && !empty($screenshot)) {
         //Move the file to the target upload folder
-        $target = GW_UPLOADPATH . $screenshot;
+        $target = GW_UPLOADPATH . time() . $screenshot;
 
         if (move_uploaded_file($_FILES['screenshot']['tmp_name'], $target)) {  
         // Connect to the database

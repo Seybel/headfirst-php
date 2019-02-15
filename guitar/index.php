@@ -12,6 +12,8 @@
   <hr />
 
 <?php
+
+
   // Connect to the database 
 $dbc = mysqli_connect('localhost', 'seybel', 'seyimarch001', 'gwars_db');
 
