@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Subscribe for Newsletters</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <style>
+        body {
+            max-width: 800px;
+            min-width: 400px;
+            margin: 50px;
+        }
+    #lead {
+        margin-top: -30px;
+        font-size:16px;
+        color:#333;
+    }
+
+    form label {
+     display: inline-block;
+     width: 150px;
+     font-weight: bold;   
+    }
+    </style>
+</head>
+<body>
+    <p id="lead">Enter your firstname, lastname, and your email address to be added to <b>The Elvis store mailing list</b></p>
+    <form action="addmail.php" method="post">
+        <label for="firstname">First name:</label>
+        <input type="text" id="firstname" name="firstname"><br>
+        <label for="lastname">Last name:</label>
+        <input type="text" id="lastname" name="lastname"><br>
+        <label for="email">Your email address:</label>
+        <input type="text" id="email" name="email"><br><br>
+        <input type="submit" value="Subscribe" name="submit">
+    </form>
+</body>
+</html>

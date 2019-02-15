@@ -31,8 +31,9 @@ echo 'Anything else you want to add: ' . $other;
 // "Other comments: $other";
 
 // mail($to, $subject, $msg, 'From:' . $email);
+require_once('db_connect.php');
 
-$dbc = mysqli_connect('localhost', 'seybel', 'seyimarch001', 'aliendatabase')
+$dbc = mysqli_connect('DB_HOST', 'DB_USER', 'DB_PASSWORD', 'DB_NAME')
  or die('Error connecting to mySQL server.');
 
 $query = "INSERT INTO aliens_abduction(first_name, last_name, when_it_happened, how_long, " . 

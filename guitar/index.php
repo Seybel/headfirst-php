@@ -15,7 +15,9 @@
 
 
   // Connect to the database 
-$dbc = mysqli_connect('localhost', 'seybel', 'seyimarch001', 'gwars_db');
+require_once('db_connect.php');
+
+$dbc = mysqli_connect('DB_HOST', 'DB_USER', 'DB_PASSWORD', 'DB_NAME');
 
   // Retrieve the score data from MySQL
 $query = "SELECT * FROM guitar_wars";

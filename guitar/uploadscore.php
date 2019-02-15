@@ -31,7 +31,8 @@
 
 <?php
 
-define('GW_UPLOADPATH', 'images/', TRUE);
+require_once('app_vars.php');
+require_once('db_connect.php');
 
   if (isset($_POST['submit'])) {
       // Grab the score data from the POST
@@ -46,7 +47,7 @@ define('GW_UPLOADPATH', 'images/', TRUE);
 
         if (move_uploaded_file($_FILES['screenshot']['tmp_name'], $target)) {  
         // Connect to the database
-          $dbc = mysqli_connect('localhost', 'seybel', 'seyimarch001', 'gwars_db');
+          $dbc = mysqli_connect('DB_HOST', 'DB_USER', 'DB_PASSWORD', 'DB_NAME');
         
         // Write the data to the database
           $query = "INSERT INTO guitar_wars VALUES (0, NOW(), '$name', '$score', '$screenshot')";
