@@ -16,8 +16,9 @@
 
   // Connect to the database 
 require_once('db_connect.php');
+require_once('app_vars.php');
 
-$dbc = mysqli_connect('DB_HOST', 'DB_USER', 'DB_PASSWORD', 'DB_NAME');
+$dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
   // Retrieve the score data from MySQL
 $query = "SELECT * FROM guitar_wars";
@@ -36,7 +37,7 @@ while ($row = mysqli_fetch_array($data)) {
       echo '<td><img src="' . GW_UPLOADPATH . $row['screenshot'] . '" alt="Score Image" /></td></tr>'; 
     } 
     else {
-      echo '<td><img src="' . '/images/unverified.gif' . '" alt="Unverified score" /></td></tr>';
+      echo '<td><img src="' . 'images/unverified.gif' . '" alt="Unverified score" /></td></tr>';
     }
 }
   echo '</table>';

@@ -59,7 +59,7 @@ else {
 }
 
 if ((!empty($subject)) && (!empty($msg_body))) {
-    $dbc = mysqli_connect('DB_HOST', 'DB_USER', 'DB_PASSWORD', 'DB_NAME')
+    $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
         or die('Error connecting to MySQL server.');
 
     $query = "SELECT * FROM mailing_list";

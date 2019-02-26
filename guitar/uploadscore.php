@@ -47,7 +47,7 @@ require_once('db_connect.php');
 
         if (move_uploaded_file($_FILES['screenshot']['tmp_name'], $target)) {  
         // Connect to the database
-          $dbc = mysqli_connect('DB_HOST', 'DB_USER', 'DB_PASSWORD', 'DB_NAME');
+      $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
         
         // Write the data to the database
           $query = "INSERT INTO guitar_wars VALUES (0, NOW(), '$name', '$score', '$screenshot')";

@@ -9,7 +9,7 @@ echo 'Hello ' . $full_name . ', thanks for subscribing to our mailing list, ' .
 
 require_once('db_connect.php');
 
-$database = mysqli_connect('DB_HOST', 'DB_USER', 'DB_PASSWORD', 'DB_NAME')
+$database = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME)
 or die('Error connecting to mySql');
 
 $query = "INSERT INTO mailing_list(first_name, last_name, email)" . 
