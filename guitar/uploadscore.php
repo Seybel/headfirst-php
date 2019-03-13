@@ -40,51 +40,63 @@
       $name = $_POST['name'];
       $score = $_POST['score'];
       $screenshot = $_FILES['screenshot']['name'];
-      $output_form = false;
+      $screenshot_type = $_FILES['screenshot']['type'];
+      $screenshot_size = $_FILES['screenshot']['size'];
 
       if (!empty($name) && !empty($score) && is_numeric($score) && !empty($screenshot)) {
-        //Move the file to the target upload folder
-        $target = GW_UPLOADPATH . time() . $screenshot;
+        if ((($screenshot_type == 'image/gif') || ($screenshot_type == 'image/jpeg') || ($screenshot_type == 'image/pjpeg')
+          || ($screenshot_type == 'image/png')) && ($screenshot_size > 0) && ($screenshot_size <= GW_MAXFILESIZE)) {
 
-        if (move_uploaded_file($_FILES['screenshot']['tmp_name'], $target)) {
-          echo "The file " . $screenshot . " has been uploaded.";
+            if ($_FILES['screenshot']['error'] == 0) {
+            //Move the file to the target upload folder
+            $target = GW_UPLOADPATH . time() . $screenshot;
 
-          // Connect to the database
-          $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+            if (move_uploaded_file($_FILES['screenshot']['tmp_name'], $target)) {
+              echo "The file " . $screenshot . " has been uploaded.";
+              // Connect to the database
+              $dbc = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 
-          // Write the data to the database
-          $query = "INSERT INTO guitar_wars VALUES (0, NOW(), '$name', '$score', '$target')";
-          mysqli_query($dbc, $query);
+              // Write the data to the database
+              $query = "INSERT INTO guitar_wars VALUES (0, NOW(), '$name', '$score', '$target')";
+              mysqli_query($dbc, $query);
 
-          // Confirm success with the user
-          echo '<p>Thanks for adding your new high score!</p>';
-          echo '<p><strong>Name:</strong> ' . $name . '<br />';
-          echo '<strong>Score:</strong> ' . $score . '</p>' . '<br/>';
-          echo '<p><a href="index.php">&lt;&lt; Back to high scores</a></p>';
+              // Confirm success with the user
+              echo '<p>Thanks for adding your new high score!</p>';
+              echo '<p><strong>Name:</strong> ' . $name . '<br />';
+              echo '<strong>Score:</strong> ' . $score . '</p>' . '<br/>';
+              echo '<p><a href="index.php">&lt;&lt; Back to high scores</a></p>';
 
-          // Clear the score data to clear the form
-          $name = "";
-          $score = "";
-          $screenshot = "";
+              // Clear the score data to clear the form
+              $name = "";
+              $score = "";
+              $screenshot = "";
 
-          mysqli_close($dbc);
-        }
-      }
-
-      // if (!is_numeric($score)) {
-      //   echo '<p class="error">Please enter a number as your score.</p>';
-      // }
-
-      else {
-        echo '<p class="error">Please enter all of the information to add your high score.</p>';
-      }
-    }
+              mysqli_close($dbc);
+            }
+            // if (!is_numeric($score)) {
+            //   echo '<p class="error">Please enter a number as your score.</p>';
+            // }
+            else {
+              echo '<p class="error">Sorry, there was a problem uploading your screenshot image.</p>';
+            }
+          }
+        } 
+            else {
+              echo '<p class="error">The screenshot must be a GIF, JPEG, or PNG file no greater than  ' . (GW_MAXFILESIZE / 1024) . 'KB in size.</p>';
+            }
+            //Try to delete the temporary screenshot file
+            @unlink($_FILES['screenshot']['tmp_name']);
+          } 
+            else {
+              echo '<p class="error">Please enter all of the information to add your high score.</p>';
+            }
+          }
 
     ?>
 
     <hr />
     <form enctype="multipart/form-data" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-        <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+        <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo GW_MAXFILESIZE; ?>" />
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" value="<?php if (!empty($name)) echo $name; ?>" /><br />
         <label for="score">Score:</label>
@@ -96,5 +108,4 @@
     </form>
 
 </body>
-
-</html >
+</html>
