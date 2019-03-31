@@ -1,3 +1,6 @@
-guitar/db_connect.php
-owen/db_connect.php
 elmere/db_connect.php
+guitar/db_connect.php
+guitar/adminHttpAuth.php
+owen/db_connect.php
+
+
